@@ -1,0 +1,28 @@
+{
+  "name": "menu-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "src": {
+    "menu-scraper": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eat": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevo95/menu-scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevo95/menu-scraper/issues"
+  },
+  "homepage": "https://github.com/stevo95/menu-scraper#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "moment": "^2.29.1"
+  }
+}
