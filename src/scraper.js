@@ -3,6 +3,7 @@
 const axios = require('axios');
 const moment = require('moment');
 const cheerio = require('cheerio');
+const iconv = require('iconv-lite');
 const { processPivniceUCapa, processSuziesSteakPub, processVeroniCafe } = require('./pubProcessors');
 const pubs = {
   'Pivnice U Capa' : 'https://www.pivnice-ucapa.cz/denni-menu.php',
@@ -13,7 +14,13 @@ const pubs = {
 // async funckia scrapuje html stranku , do ktorej vstupuje cez vlozene url  
 async function scrapeMenu (url) {
   try {
-    const response = await axios.get(url);
+    // const response = await axios.get(url);
+    const response = await axios.request({
+      method: 'GET',
+      url: url,
+      responseType: 'arraybuffer',
+      responseEncoding: 'binary'
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -37,7 +44,8 @@ async function scrapeAll () {
 
     // iteruje vsetky puby deklarovane v pubs objekte a invokuje process funckiu na kazdy z nich
     for (const [pub, url] of Object.entries(pubs)) {
-      const fullPage = await scrapeMenu(url);
+      let fullPage = await scrapeMenu(url);
+      if (pub === 'Veroni Cafe') fullPage = iconv.decode(fullPage, 'windows-1250');
       const $ = cheerio.load(fullPage);
       if (pub === 'Pivnice U Capa') {
         processPivniceUCapa($, result, todayDate, pub);

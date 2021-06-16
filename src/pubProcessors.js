@@ -35,7 +35,7 @@ function processSuziesSteakPub($, result, pub) {
         const foodItem = cheerio.load(foodItemInstance);
         const category = foodItem('.category').text().trim();
         const title = foodItem('.title').text().trim();
-        const food = foodItem('.text').text().replace(/\s\s+/g, ' ');
+        const food = foodItem('.text').text().replace(/\s\s+/g, ' ').trim();
         const price = foodItem('.price').text().trim() + ' Kč';
         const text = 'Menu ' + i;
         if (category === 'Polévka') {
@@ -69,22 +69,22 @@ function processVeroniCafe($, result, pub) {
       if ( dayMenu('.polevka').text().trim() === 'Restaurace m� tento den zav�eno.' || dayMenu('.polevka').text().trim() === 'Pro tento den nebylo zad�no menu.') {
         result[pub]['Jidlo'] = 'Restaurace ma tento den zavreno, nebo pro tento den nebylo zadano menu';
       } else {
-        dayMenu('.polevka').each((i, e) => {
-          const soup = cheerio.load(e);              
+        dayMenu('.polevka').each((i, polevka) => {
+          const soup = cheerio.load(polevka);              
           const text = `Polévka ${i + 1}`
           const food = soup('.polozka').text();
-          const price = soup('.cena').text().replace(/[^0-9]/g, '');
+          const price = soup('.cena').text();
           if (!result[pub]) result[pub] = {};
           result[pub][text] = {
             'Název': food,
-            'Cena' : `${price} Kč`,
+            'Cena' : price,
           }
         });
         const food = dayMenu('.jidlo').find('.polozka').text().replace(/[0-9.]/g, '').trim();
-        const price = dayMenu('.jidlo').find('.cena').text().replace(/[^0-9]/g, '').trim();
+        const price = dayMenu('.jidlo').find('.cena').text();
         result[pub]['Jidlo'] = {
           'Název': food,
-          'Cena': `${price} Kč`,
+          'Cena': price,
         }
       }
     }
