@@ -14,7 +14,6 @@ const pubs = {
 // async funckia scrapuje html stranku , do ktorej vstupuje cez vlozene url  
 async function scrapeMenu (url) {
   try {
-    // const response = await axios.get(url);
     const response = await axios.request({
       method: 'GET',
       url: url,
@@ -30,7 +29,6 @@ async function scrapeMenu (url) {
 // funkcia na ziskanie dennych menu z restauracii deklarovanych v pubs objekte
 async function scrapeAll () {
   try {
-
     // ziskava datum v spravnom formate cez moment
     // cislo dna cez getday metodu, nasledne ziskava nazov dna z daysArray
     const todayDate = moment().format('DD. M. YYYY');

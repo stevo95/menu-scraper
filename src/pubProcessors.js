@@ -66,15 +66,15 @@ function processVeroniCafe($, result, pub) {
     const dateArray = dayMenu('.nadpis').text().match(numRegex);
     const date = dateArray[0] + dateArray[1];
     if (today === date) {
-      if ( dayMenu('.polevka').text().trim() === 'Restaurace m� tento den zav�eno.' || dayMenu('.polevka').text().trim() === 'Pro tento den nebylo zad�no menu.') {
-        result[pub]['Jidlo'] = 'Restaurace ma tento den zavreno, nebo pro tento den nebylo zadano menu';
+      if (!result[pub]) result[pub] = {};
+      if ( dayMenu('.polevka').text().trim() === 'Restaurace má tento den zavřeno.' || dayMenu('.polevka').text().trim() === 'Pro tento den nebylo zadáno menu.') {
+        result[pub]['Jidlo'] = 'Restaurace má tento den zavřeno, nebo pro tento den nebylo zadáno menu.';
       } else {
         dayMenu('.polevka').each((i, polevka) => {
           const soup = cheerio.load(polevka);              
           const text = `Polévka ${i + 1}`
           const food = soup('.polozka').text();
           const price = soup('.cena').text();
-          if (!result[pub]) result[pub] = {};
           result[pub][text] = {
             'Název': food,
             'Cena' : price,
