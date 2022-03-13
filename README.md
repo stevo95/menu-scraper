@@ -1,5 +1,9 @@
-## Ako spustit ⚡⚡⚡
-1. Clone repo lokalne
-2. Spusti npm install / npm i z projekt priecinku cez CLI 
-3. Spusti "npm run eat" z projekt priecinku cez CLI
-4. Denne menu budu lognute do konzoly
+## About
+  - simple scraper that pulls daily menu for the week from 3 restaurants :-) 
+
+
+## How to run ⚡⚡⚡
+1. Clone repo locally
+2. Run npm install / npm i from project root via CLI 
+3. Run "npm run eat" from project root via CLI
+4. Daily menu will be logged into the console
